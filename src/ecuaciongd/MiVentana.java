@@ -35,10 +35,27 @@ public class MiVentana extends javax.swing.JFrame {
                 aActionPerformed(evt);
             }
         });
+        a.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                aKeyTyped(evt);
+            }
+        });
+
+        b.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("x^2  +");
 
         jLabel2.setText("x+");
+
+        c.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("= 0");
 
@@ -115,22 +132,30 @@ public class MiVentana extends javax.swing.JFrame {
     private void aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aActionPerformed
+    private void validarEntrada(java.awt.event.KeyEvent evt, char tecla) {
+        if ((tecla <= '9' && tecla >= '1' || tecla == '-')) {
 
+        } else {
+            JOptionPane.showMessageDialog(c, "Ingrese solo numeros");
+            evt.consume();
+        }
+
+    }
     private void jBRaicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRaicesActionPerformed
-        Validar v = new Validar();
-        double numeroA = 0, numeroB = 0, numeroC = 0, raiz, resultado1, resultado2;
-        boolean x = v.EsNumero(a.getText());
-        boolean y = v.EsNumero(b.getText());
-        boolean z = v.EsNumero(c.getText());
 
-        if (x == true && y == true && z == true) { // verifico que sean solo numeros
+        double numeroA = 0, numeroB = 0, numeroC = 0, raiz, resultado1, resultado2;
+
+
+      
             numeroA = Double.parseDouble(a.getText());
             numeroB = Double.parseDouble(b.getText());
             numeroC = Double.parseDouble(c.getText());
             if (Math.pow(numeroB, 2) - (4 * numeroA * numeroC) >= 0) {  //verifico la raiz de la ecuacion sea positiva
                 raiz = Math.sqrt(Math.pow(numeroB, 2) - (4 * numeroA * numeroC));
 
-                if (numeroA == 0) {
+                if (numeroA == 0 && numeroB==0) {
+                      JOptionPane.showMessageDialog(null, "No cumple igualdad");
+                } else if(numeroA==0 && numeroB!=0){   
                     resultado1 = -numeroC / numeroB;
                     JOptionPane.showMessageDialog(null, "Raiz unica  :  " + resultado1);
                 } else {
@@ -149,19 +174,31 @@ public class MiVentana extends javax.swing.JFrame {
 
             }
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
-        }
     }//GEN-LAST:event_jBRaicesActionPerformed
 
     private void jBGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGraficarActionPerformed
-        final Graficar demo = new Graficar("Grafica cuadratica",Integer.parseInt(a.getText()),Integer.parseInt(b.getText()),Integer.parseInt(c.getText()));
+        final Graficar demo = new Graficar("Grafica cuadratica", Integer.parseInt(a.getText()), Integer.parseInt(b.getText()), Integer.parseInt(c.getText()));
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
 
     }//GEN-LAST:event_jBGraficarActionPerformed
+
+    private void aKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aKeyTyped
+        char tecla = evt.getKeyChar();
+        validarEntrada(evt, tecla); // TODO add your handling code here:
+    }//GEN-LAST:event_aKeyTyped
+
+    private void bKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bKeyTyped
+             char tecla = evt.getKeyChar();
+        validarEntrada(evt, tecla);  // TODO add your handling code here:
+    }//GEN-LAST:event_bKeyTyped
+
+    private void cKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cKeyTyped
+               char tecla = evt.getKeyChar();
+        validarEntrada(evt, tecla);// TODO add your handling code here:
+    }//GEN-LAST:event_cKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
